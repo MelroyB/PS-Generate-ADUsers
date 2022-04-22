@@ -60,7 +60,7 @@ $FirstNames = Import-CSV $firstNameFile
 "[+] Loaded first names file."
 $LastNames = Import-CSV $lastNameFile
 "[+] Loaded last names file."
-$Passwords = gc $passwordsFile
+$Passwords = Get-Content $passwordsFile
 "[+] Loaded password file."
 
 
@@ -109,11 +109,12 @@ $name = $firstname + " " + $lastname
 
 $ouUser = "OU=$department,$ou"
 
-
-
 New-ADUser -SamAccountName $samAccountName -UserPrincipalName "$sAMAccountName@$dnsDomain" -Name $name -GivenName $firstname -Surname $lastname -DisplayName $name -Company $company -Department $department -Title $title -EmployeeNumber $employeeNumber -EmailAddress "$samAccountName@$dnsDomain" -AccountPassword $password  -Path $ouUser -Enabled $true -PasswordNeverExpires $true -ChangePasswordAtLogon $false -ErrorAction SilentlyContinue -ErrorVariable err
 Write-host "User: $i"
-Write-host "Created User: $name"Write-host " Logon      : $samAccountName"Write-host " Password   : $passw"Write-host " Department : $department"
+Write-host "Created User: $name"
+Write-host " Logon      : $samAccountName"
+Write-host " Password   : $passw"
+Write-host " Department : $department"
 Write-host " Title      : $title"
 Write-host " Employee   : $employeeNumber"
 
